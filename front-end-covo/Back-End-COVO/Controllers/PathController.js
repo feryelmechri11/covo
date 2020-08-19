@@ -1,6 +1,6 @@
 const pathModel = require("../Models/pathModel");
 const userModel = require("../Models/userModel");
-
+const jwt = require("jsonwebtoken");
 exports.getPath = async (req, res) => {
   pathModel
     .find()
@@ -10,7 +10,15 @@ exports.getPath = async (req, res) => {
 };
 
 exports.addPath = (req, res) => {
-  const newPath = new pathModel(req.body);
+  let newPath = new pathModel({...req.body, user_id: ""});
+
+  /***************************** */
+  let mytoken = req.cookies.token; //get the token
+  let decoded = jwt.verify(mytoken, process.env.SECRETKEY); //decode the token
+  console.log(decoded);
+  newPath.user_id = decoded._id;
+
+  /************************ */
   newPath.save();
 
   res.send("path added  ");

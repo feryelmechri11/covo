@@ -1,33 +1,27 @@
 import { combineReducers } from "redux";
 
-const listMeals = [];
-const initialState = [];
+const listAds = [];
+// const initialState = [];
 
-function reducersMeals(state = listMeals, action) {
-  if (action.type === "MealsListAction") {
+function reducersAds(state = listAds, action) {
+  if (action.type === "AdsListAction") {
     return action.data;
   }
   return state;
 }
 
-function reducersMealslist(state = listMeals, action) {
-  if (action.type === "getMealsFromApi") {
+function reducersAdslist(state = listAds, action) {
+  if (action.type === "getAdsFromApi") {
     return action.data;
   }
   return state;
 }
 
-function OrdersRedusers(state = initialState, action) {
-  if (action.type === "getAllOrders") {
-    return action.payload;
-  }
 
-  return state;
-}
 const allReducers = combineReducers({
-  menuReducerkey: reducersMeals,
-  getMealsFromApiListReducer: reducersMealslist,
-  orders: OrdersRedusers,
+  adsReducerkey: reducersAds,
+  getAdsFromApiListReducer: reducersAdslist,
+ 
 });
 
 export default allReducers;
