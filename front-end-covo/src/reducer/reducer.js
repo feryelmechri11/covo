@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
 const listAds = [];
-// const initialState = [];
+const listPaths = [];
 
 function reducersAds(state = listAds, action) {
   if (action.type === "AdsListAction") {
@@ -17,11 +17,17 @@ function reducersAdslist(state = listAds, action) {
   return state;
 }
 
+function reducersPathlist (state = listPaths, action) {
+  if (action.type === "PathListAction") {
+    return action.payload;
+  }
 
+  return state;
+}
 const allReducers = combineReducers({
   adsReducerkey: reducersAds,
   getAdsFromApiListReducer: reducersAdslist,
- 
+  pathReducer:reducersPathlist
 });
 
 export default allReducers;

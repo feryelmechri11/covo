@@ -8,7 +8,16 @@ const PathRouter = require("./Routes/pathRoute");
 const LoginRouter = require("./Routes/LoginRoute");
 const cookieparser = require("cookie-parser");
 
-app.use(cors());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  next();
+});
 app.use(express.json());
 app.use(cookieparser());
 //responsable bech thezni lel entité wa9et eli hajti donc role d'un middleware ywajahni lel entité eli bech naamel aaliha lcrud
@@ -29,4 +38,4 @@ app.use("/covo/paths", PathRouter);
 app.use("/covo/login", LoginRouter);
 
 //connexion de serveur
-app.listen(4000, () => console.log("connected"));
+app.listen(4000, () => console.log("connected on localhost:4000"));

@@ -6,6 +6,9 @@ import NavbarPage from "./components/Navbar/navbar";
 import Authentification from "./components/authentification";
 import AdCard from "./components/AdsPages/ad";
 import Signup from "./components/signup";
+import ParcelAd from "./components/ParcelPages/ParcelAd";
+import PathAd from "./components/PathsPages/PathAd";
+import Profile from "./components/AccountPages/Profile";
 
 class App extends Component {
   state = {
@@ -17,6 +20,7 @@ class App extends Component {
       <Router>
         <div>
           <NavbarPage />
+          {/* <Profile /> */}
           <Switch>
             <Route exact path="/">
               LAnding Page
@@ -30,8 +34,12 @@ class App extends Component {
             <Route path="/ADS">
               <AdCard />
             </Route>
-            <Route path="/Trajet">lzhfmzehfmhz</Route>
-            <Route path="/Colis">Colis</Route>
+            <Route path="/Trajet">
+              <PathAd />
+            </Route>
+            <Route path="/Colis">
+              <ParcelAd />
+            </Route>
           </Switch>
         </div>
       </Router>

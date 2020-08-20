@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import "./authentification.css";
+import {LoginUser} from "../action/actions"
 class Authentification extends Component {
+  state={
+    email:"",
+    password:""
+  }
   render() {
     return (
       <div className="Autho">
@@ -45,15 +50,18 @@ class Authentification extends Component {
               <input
                 type="email"
                 placeholder="Adresse e-mail
-"
+" onChange={(e) => this.setState({ email: e.target.value })}
               />
               <input
                 type="password"
                 placeholder="Mot de passe 
-"
+" onChange={(e) => this.setState({ password: e.target.value })}
               />
               <a href="#">Mot de passe oublié ?</a>
-              <button>Connexion</button>
+              <button   onClick={(e) => {
+                  e.preventDefault();
+                  LoginUser(this.state);
+                }}>Connexion</button>
             </form>
           </div>
           <div className="overlay-container">

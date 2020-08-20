@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import "./signup.css";
+
+import { AddUserToApi } from "../action/actions";
+
 class Authentification extends Component {
+  state = {
+    name: "",
+    password: "",
+    phone_number: "",
+    email: "",
+  };
   render() {
     return (
       <div className="Autho">
@@ -20,16 +29,38 @@ class Authentification extends Component {
                   <i className="fab fa-linkedin-in"></i>
                 </a>
               </div>
-              <input type="text" placeholder="Nom Prénom" />
-              <input type="text" placeholder="Num de tel" />
-              <input type="email" placeholder="Adresse e-mail" />
+              <input
+                type="text"
+                placeholder="Nom Prénom"
+                onChange={(e) => this.setState({ name: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Num de tel"
+                onChange={(e) =>
+                  this.setState({ phone_number: e.target.value })
+                }
+              />
+              <input
+                type="email"
+                placeholder="Adresse e-mail"
+                onChange={(e) => this.setState({ email: e.target.value })}
+              />
               <input
                 type="password"
                 placeholder="Mot de passe 
 "
+                onChange={(e) => this.setState({ password: e.target.value })}
               />
               <a href="#">Mot de passe oublié ?</a>
-              <button>Connexion</button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  AddUserToApi(this.state);
+                }}
+              >
+                Connexion
+              </button>
             </form>
           </div>
           <div className="overlay-container">

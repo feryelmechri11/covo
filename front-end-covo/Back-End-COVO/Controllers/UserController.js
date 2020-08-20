@@ -5,9 +5,9 @@ exports.getUser = (req, res) => {
 
 exports.addUser = (req, res) => {
   const newUser = new userModel(req.body);
-  newUser.save();
 
-  res.send("user added ");
+  res.status(200).send(newUser);
+  newUser.save();
 };
 
 exports.editUser = (req, res) => {

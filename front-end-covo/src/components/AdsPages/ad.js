@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { apiData, getAdsFromApi } from "../../action/actions";
+import { apiData, getAdsFromApi ,getAllPaths,getPathsFromApi} from "../../action/actions";
 import "./ad.css";
 import {
   MDBBtn,
@@ -17,6 +17,7 @@ import {
 class AdCard extends Component {
   componentDidMount() {
     this.props.getAds();
+    this.props.getPaths();
   }
   state = {
     starting_address: "",
@@ -63,11 +64,10 @@ class AdCard extends Component {
             </MDBRow>
           </div>
           <select className="browser-default custom-select">
-            <option>Type d'objet</option>
-            <option value="1">S</option>
-            <option value="2">M</option>
-            <option value="3">L</option>
-            <option value="3">XL</option>
+            <option>Type d'annonce</option>
+            <option value="1"> Annonce colis </option>
+            <option value="2">Annonce Trajet</option>
+         
           </select>
         </div>
         <div className="ad_card">
@@ -103,7 +103,49 @@ class AdCard extends Component {
                   </MDBCardText>
                   <MDBCardText>
                     {" "}
-                    <MDBIcon icon="user" /> expédiée par le livreur{" "}
+                    <MDBIcon icon="user" /> publiée par {" "}
+                    {el.delivery_user_name}
+                  </MDBCardText>
+                  <MDBBtn href="#">Me proposer </MDBBtn>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          ))}
+        </div>
+        <div className="ad_card">
+          {this.props.listPaths.map((el) => (
+            <MDBCol
+              style={{ maxWidth: "22rem" }}
+              className="adItem"
+              key={el.id}
+            >
+              <MDBCard>
+                <MDBCardImage
+                  className="img-fluid"
+                  src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
+                  waves
+                />
+                <MDBCardBody>
+                  <MDBCardTitle> Type Trajet  </MDBCardTitle>
+                  <MDBCardText>
+                    {" "}
+                    <i className="fas fa-map-marker-alt"></i>{" "}
+                    {el.starting_address}
+                  </MDBCardText>
+                  <MDBCardText>
+                    {" "}
+                    <i className="fas fa-map-marker-alt"></i>{" "}
+                    {el.arrival_address}
+                  </MDBCardText>
+                  <MDBCardText>
+                    {" "}
+                    <i class="far fa-calendar-alt"></i> à livrer entre{" "}
+                    {el.date_departure}
+                    et le {el.arrival_date}
+                  </MDBCardText>
+                  <MDBCardText>
+                    {" "}
+                    <MDBIcon icon="user" /> publiée par {" "}
                     {el.delivery_user_name}
                   </MDBCardText>
                   <MDBBtn href="#">Me proposer </MDBBtn>
@@ -119,8 +161,10 @@ class AdCard extends Component {
 
 const mapStateToProps = (state) => ({
   listAds: state.adsReducerkey,
+  listPaths: state.pathReducer
 });
 const mapDispatchToProps = (dispatch) => ({
   getAds: () => dispatch(getAdsFromApi()),
+  getPaths : () => dispatch(getPathsFromApi())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(AdCard);
