@@ -16,5 +16,5 @@ exports.login = (req, res) => {
     });
 };
 exports.logout = (req, res) => {
-  res.cookie("token", "", { maxAge: -0 }).send("haha");
+  res.cookie("token", "", { maxAge: -0 }).status(200).send("haha");
 };

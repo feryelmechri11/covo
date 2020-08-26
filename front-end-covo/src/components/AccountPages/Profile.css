@@ -1,13 +1,20 @@
+/* .profile-container{
+    display: flex;
+    flex-direction: row;
+}
+
 * {
     box-sizing: border-box;
+    font-family: "Raleway";
+    background-color: #e6e6e6;
 }
 
 body {
     font-family: "Raleway";
     background-color: #e6e6e6;
-}
+} */
 
-.card {
+/* .card {
     width: 400px;
     margin: 75px ;
     background-color: #fff;
@@ -15,6 +22,7 @@ body {
     color: #444;
     text-align: center;
     font-size: 16px;
+    
 }
 
 .card .card-header {
@@ -126,4 +134,54 @@ body {
         display: block;
         margin-bottom: 5px;
     }
+} */
+
+
+.profile{
+    display: flex;
+    flex-direction: row;
+}
+.userDetails{
+    width: 350px;
+}
+.userDetails  .profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 700px;
+   /* position: absolute;*/
+   margin-left: 60px;
+   margin-right: auto;
+   /* transform: translate(50%, 50%);*/
+    border: 2px solid #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+.verified-items{
+    display: flex;
+    flex-direction: column;
+    margin-top: 70px ;
+}
+.verified-items a{
+     margin-left: 30px;
+   
+}
+.desc{
+    margin-left: 20px;
+}
+.activity{
+    display: flex;
+    flex-direction: column;
+    margin-top: 70px ;  
+}
+.activity i{
+    margin-left: 30px;
+  
+}
+.desc{
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+.desc h2{
+    margin-left: 20px;
 }

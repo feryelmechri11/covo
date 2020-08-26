@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Parcelform from "../ParcelPages/Parcelfrom";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
@@ -7,6 +7,9 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import RecapParcel from "./RecapParcel";
+
+import { addAdsToApi } from "../../action/actions";
+import { useDispatch } from "react-redux";
 
 const ParcelAd = makeStyles((theme) => ({
   root: {
@@ -22,38 +25,104 @@ const ParcelAd = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return [
-    "Informations de colis",
-    "Récapitulatif",
-    "Validation",
-  ];
+  return ["Informations de colis", "Récapitulatif", "Validation"];
 }
 
-function getStepContent(stepIndex) {
+function getStepContent(stepIndex, props) {
   switch (stepIndex) {
     case 0:
       return (
         <div>
-          <Parcelform />
+          <Parcelform
+            handleChangestarting_address={props.handleChangestarting_address}
+            handleChangearrival_address={props.handleChangearrival_address}
+            handleChangedate_departure={props.handleChangedate_departure}
+            handleChangearrival_date={props.handleChangearrival_date}
+            handleChangepicture={props.handleChangepicture}
+            handleChangeobject_type={props.handleChangeobject_type}
+            handleChangedescription={props.handleChangedescription}
+            handleChangeprice={props.handleChangeprice}
+          />
         </div>
       );
     case 1:
-      return (<div> 
-        <RecapParcel />
-      </div>);
+      return (
+        <div>
+          <RecapParcel ads={props.ads}/>
+        </div>
+      );
     case 2:
-      return (<div>
-      <h3> votre annonce a été publiée avec <strong>succés</strong></h3>
-    </div>)
+      return (
+        <div>
+          <h3>
+            {" "}
+            votre annonce a été publiée avec <strong>succés</strong>
+          </h3>
+        </div>
+      );
     default:
       return "Unknown stepIndex";
   }
 }
 
 export default function HorizontalLabelPositionBelowStepper() {
+  const [ads, setAds] = useState({
+    starting_address: "",
+    arrival_address: "",
+    date_departure: "",
+    arrival_date: "",
+    picture: "",
+    object_type: "",
+    price: "",
+    description: "",
+  });
+  const dispatch = useDispatch();
   const classes = ParcelAd();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+
+  /******************************************Get  ads items  ******************************** */
+  const handleChangestarting_address = (event) => {
+    ads.starting_address = event;
+    setAds(ads);
+    console.log(ads);
+  };
+  const handleChangearrival_address = (event) => {
+    ads.arrival_address = event;
+    setAds(ads);
+    console.log(ads);
+  };
+  const handleChangedate_departure = (event) => {
+    ads.date_departure = event;
+    setAds(ads);
+    console.log(ads);
+  };
+  const handleChangearrival_date = (event) => {
+    ads.arrival_date = event;
+    setAds(ads);
+    console.log(ads);
+  };
+  const handleChangepicture = (event) => {
+    ads.picture = event;
+    setAds(ads);
+    console.log(ads);
+  };
+  const handleChangeobject_type = (event) => {
+    ads.picture = event;
+    setAds(ads);
+    console.log(ads);
+  };
+  const handleChangeprice = (event) => {
+    ads.price = event;
+    setAds(ads);
+    console.log(ads);
+  };
+
+  const handleChangedescription = (event) => {
+    ads.description = event;
+    setAds(ads);
+  };
+  /************************************************************ */
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -87,7 +156,20 @@ export default function HorizontalLabelPositionBelowStepper() {
         ) : (
           <div>
             <Typography className={classes.instructions}>
-              {getStepContent(activeStep)}
+              {getStepContent(activeStep, {
+                handleChangestarting_address: (e) =>
+                  handleChangestarting_address(e),
+                handleChangearrival_address: (e) =>
+                  handleChangearrival_address(e),
+                handleChangedate_departure: (e) =>
+                  handleChangedate_departure(e),
+                handleChangearrival_date: (e) => handleChangearrival_date(e),
+                handleChangepicture: (e) => handleChangepicture(e),
+                handleChangeobject_type: (e) => handleChangeobject_type(e),
+                handleChangedescription: (e) => handleChangedescription(e),
+                handleChangeprice: (e) => handleChangeprice(e),
+                ads:ads
+              })}
             </Typography>
             <div>
               <Button
@@ -97,8 +179,26 @@ export default function HorizontalLabelPositionBelowStepper() {
               >
                 Back
               </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  let test = localStorage.getItem("logcheck");
+                  if (activeStep === steps.length - 2) {
+                    if (test !== "true") {
+                      alert("merci de se connecter");
+                      window.location.assign("/Auth");
+                    } else {
+                      handleNext();
+                      dispatch(addAdsToApi(ads));
+                    }
+                  } else {
+                    handleNext();
+                    console.log(ads);
+                  }
+                }}
+              >
+                {activeStep === steps.length - 1 ? "Valider" : "Suivant"}
               </Button>
             </div>
           </div>

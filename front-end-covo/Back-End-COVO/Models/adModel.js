@@ -2,13 +2,12 @@ const mongoose = require("mongoose");
 const ObjectId = require("mongoose").Schema.Types.ObjectId;
 const usermodel = require("../Models/userModel");
 const adsSchema = mongoose.Schema({
-  starting_addressAds: String,
+  starting_address: String,
   arrival_address: String,
   Date_departure: Date,
   arrival_date: Date,
   price: Number,
-  weight:Number,
-  photo:String,
+  picture:String,
   description:String,
   object_type:String,
   user_id: {

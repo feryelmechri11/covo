@@ -1,0 +1,33 @@
+.container-ccm{
+    margin-top: 70px;
+   
+    border: 5px solid #F6F9FF;
+  padding: 10px;
+  box-shadow: 5px 3px #F6F9FF;
+}
+.ccmbtn{
+    margin-left:380px;
+    margin-top: 50px;
+   
+}
+.iconbtn{
+    transition: 0.3s;
+  border-radius: 50%;
+  /*color:#4CC9D6;*/
+  margin-bottom: 40px;
+  margin-left: 100px;
+}
+.step{
+    /*height: 200px;*/
+    width:250px;
+}
+.steps{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+p,h5{
+    text-align: center;
+}
